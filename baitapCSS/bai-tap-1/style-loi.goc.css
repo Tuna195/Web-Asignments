@@ -16,10 +16,6 @@
 * {
 	margin: 0;
 	padding: 0;
-	/* SỬA 1: mặc định content-box cộng padding 16px*2 + viền 1px*2 vào
-	   flex-basis của .card nên 3 thẻ vượt quá 100% → thẻ thứ 3 rớt hàng.
-	   border-box tính padding + viền vào trong chiều rộng đã khai báo. */
-	box-sizing: border-box;
 }
 
 body {
@@ -37,11 +33,6 @@ a {
 .site-header {
 	background: #2b2b2b;
 	position: sticky;
-	/* SỬA 2: sticky không có ngưỡng (top) thì không bao giờ dính lại. */
-	top: 0;
-	/* SỬA 3: .hero-overlay có z-index: 5 nên chữ hero đè lên menu khi cuộn;
-	   menu cần z-index cao hơn để luôn nằm trên ảnh. */
-	z-index: 10;
 }
 
 .header-inner {
@@ -79,18 +70,11 @@ a {
 .hero {
 	height: 360px;
 	overflow: hidden;
-	/* SỬA 4: thiếu position nên .hero-overlay (absolute) căn theo cả trang
-	   thay vì theo khung hero → tiêu đề không nằm giữa ảnh. */
-	position: relative;
 }
 
 .hero-bg {
-	/* SỬA 5: img là inline nên còn khe hở dưới đáy; ảnh 666x342 bị kéo méo
-	   khi ép vào 100% x 360px. object-fit: cover phủ kín khung, giữ tỉ lệ. */
-	display: block;
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
 }
 
 .hero-overlay {
@@ -145,11 +129,7 @@ a {
 
 .card {
 	flex: 0 0 calc((100% - 48px) / 3);
-	/* SỬA 6: bỏ "height: 300px" — chiều cao cố định làm chữ tràn ra ngoài thẻ;
-	   để thẻ tự cao theo nội dung. */
-	/* SỬA 7: thẻ phải là khung định vị cho .badge (absolute); thiếu dòng này
-	   thì cả 3 nhãn cùng bay lên góc trên bên phải của trang. */
-	position: relative;
+	height: 300px;
 	background: #fff;
 	border: 1px solid #e0d8c8;
 	border-radius: 8px;
@@ -171,12 +151,6 @@ a {
 
 .card img {
 	display: block;
-	/* SỬA 8: ảnh giữ kích thước gốc (meeting.jpg rộng 666px) nên tràn khỏi thẻ.
-	   Ép ảnh vừa bề rộng thẻ, cao đều nhau, cắt gọn bằng object-fit. */
-	width: 100%;
-	height: 160px;
-	object-fit: cover;
-	border-radius: 4px;
 }
 
 .card-body h3 {
@@ -199,11 +173,8 @@ a {
 /* ===== Nút lên đầu trang ===== */
 .back-to-top {
 	position: fixed;
-	/* SỬA 9: "top" đặt nút ở góc TRÊN (đè lên menu); yêu cầu là góc DƯỚI. */
-	bottom: 24px;
+	top: 24px;
 	right: 24px;
-	/* SỬA 10: luôn nổi trên menu, chữ hero và thẻ sản phẩm khi cuộn. */
-	z-index: 20;
 	width: 48px;
 	height: 48px;
 	background: #2b2b2b;
